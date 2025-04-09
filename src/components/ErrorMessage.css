@@ -1,0 +1,109 @@
+.error-container {
+  background-color: rgba(231, 76, 60, 0.1);
+  border-left: 4px solid var(--error-color);
+  padding: 1.2rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  animation: fadeIn 0.4s ease forwards, shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.error-icon {
+  background-color: var(--error-color);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 1rem;
+  box-shadow: 0 2px 5px rgba(231, 76, 60, 0.3);
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Pulsating effect for the error icon */
+.error-icon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  border: 2px solid var(--error-color);
+  animation: pulse 2s infinite;
+}
+
+.error-text {
+  color: var(--text-color);
+  font-weight: 500;
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* Add a subtle pattern background */
+.error-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(
+    45deg, 
+    rgba(231, 76, 60, 0.05) 25%, 
+    transparent 25%, 
+    transparent 50%, 
+    rgba(231, 76, 60, 0.05) 50%, 
+    rgba(231, 76, 60, 0.05) 75%, 
+    transparent 75%, 
+    transparent
+  );
+  background-size: 10px 10px;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+  20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Add responsive adjustments */
+@media (max-width: 600px) {
+  .error-container {
+    padding: 1rem;
+  }
+  
+  .error-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .error-text {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,62 @@
+.theme-toggle {
+  background-color: var(--card-glass);
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  padding: 0.6rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(var(--primary-color), 0.1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle:hover {
+  background-color: var(--primary-glass);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Add subtle glow effect to the icon */
+.theme-toggle span {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover span {
+  transform: rotate(20deg);
+}
+
+/* Create a background ripple effect on hover */
+.theme-toggle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.theme-toggle:hover::after {
+  transform: translate(-50%, -50%) scale(1.5);
+  opacity: 0.2;
+}
+
+/* Smooth transition for theme change */
+.theme-toggle[data-theme="dark"] {
+  background-color: var(--card-glass-dark);
+}

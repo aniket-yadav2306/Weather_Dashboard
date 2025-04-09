@@ -1,0 +1,109 @@
+.recent-searches {
+  margin-top: 1.5rem;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.recent-searches h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.35rem;
+}
+
+.recent-searches h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, var(--primary-color), transparent);
+}
+
+.search-history {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  max-width: 100%;
+}
+
+.history-item {
+  background-color: var(--card-glass);
+  color: var(--primary-color);
+  border: 1px solid rgba(var(--primary-color), 0.2);
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.history-item::before {
+  content: '🔍';
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.history-item:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.history-item:active {
+  transform: translateY(0);
+}
+
+/* Add ripple effect */
+.history-item::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: inherit;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.history-item:hover::after {
+  transform: translate(-50%, -50%) scale(1.5);
+  opacity: 0;
+  animation: rippleEffect 0.6s ease;
+}
+
+@keyframes rippleEffect {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .search-history {
+    gap: 0.4rem;
+  }
+  
+  .history-item {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
