@@ -234,17 +234,20 @@
 }
 
 /* Day/Night mode effects */
+/* In WeatherCard.css */
+/* Change these classes */
 .day-mode {
-  background-color: var(--card-glass);
+  background-color: white;
+  color: var(--text-color);
 }
 
 .night-mode {
-  background-color: rgba(25, 25, 50, 0.85);
+  background-color: #121212;
   color: #f0f5ff;
 }
 
 .night-mode .weather-details {
-  background-color: rgba(0, 0, 20, 0.2);
+  background-color: rgba(30, 30, 50, 0.2);
 }
 
 /* Weather animations */

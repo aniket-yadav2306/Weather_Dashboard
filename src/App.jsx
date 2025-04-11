@@ -3,9 +3,10 @@ import SearchBar from './components/SearchBar';
 import WeatherCard from './components/WeatherCard';
 import LoadingSpinner from './components/LoadingSpinner';
 import ForecastSection from './components/ForecastSection';
-import HourlyForecast from './components/HourlyForecast'; // Add import
+import HourlyForecast from './components/HourlyForecast';
 import RecentSearches from './components/RecentSearches';
 import ThemeToggle from './components/ThemeToggle';
+import MapView from './components/MapView'; // Import the new MapView component
 import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   const [error, setError] = useState(null);
   const [recentSearches, setRecentSearches] = useState([]);
   const [darkMode, setDarkMode] = useState(false);
+  const [coordinates, setCoordinates] = useState({ lat: null, lon: null }); // Add coordinates state
 
   const API_KEY = '2ef836536612fabaaac2990fc33ac7dc'; // Add your OpenWeatherMap API key here
   
@@ -75,6 +77,12 @@ function App() {
       
       const data = await response.json();
       setWeatherData(data);
+      
+      // Save coordinates for map
+      setCoordinates({
+        lat: data.coord.lat,
+        lon: data.coord.lon
+      });
       
       // Update recent searches
       updateRecentSearches(searchCity);
@@ -155,6 +163,12 @@ function App() {
     }
   };
   
+  // New function to clear recent searches
+  const handleClearSearches = () => {
+    setRecentSearches([]);
+    localStorage.removeItem('recentSearches');
+  };
+  
   const toggleTheme = () => {
     setDarkMode(!darkMode);
   };
@@ -188,7 +202,8 @@ function App() {
         {weatherData && !loading && !error && (
           <WeatherCard 
             weatherData={weatherData} 
-            onRefresh={handleRefresh} 
+            onRefresh={handleRefresh}
+            darkMode={darkMode} // Pass darkMode prop to WeatherCard
           />
         )}
         
@@ -206,10 +221,19 @@ function App() {
           />
         )}
         
+        {weatherData && !loading && !error && coordinates.lat && coordinates.lon && (
+          <MapView 
+            lat={coordinates.lat}
+            lon={coordinates.lon}
+            city={city}
+          />
+        )}
+        
         {recentSearches.length > 0 && (
           <RecentSearches 
             searches={recentSearches} 
-            onSelectSearch={handleRecentSearch} 
+            onSelectSearch={handleRecentSearch}
+            onClearSearches={handleClearSearches} // Add the clear function
           />
         )}
       </main>

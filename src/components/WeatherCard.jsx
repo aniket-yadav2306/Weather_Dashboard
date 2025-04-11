@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './WeatherCard.css';
 
-const WeatherCard = ({ weatherData, onRefresh }) => {
+const WeatherCard = ({ weatherData, onRefresh, darkMode }) => {
   const [animateCard, setAnimateCard] = useState(false);
   const [timeOfDay, setTimeOfDay] = useState('day');
   
@@ -60,8 +60,11 @@ const WeatherCard = ({ weatherData, onRefresh }) => {
     return '';
   };
 
+  // Add darkMode to determine card appearance
+  const cardModeClass = darkMode ? 'night-mode' : 'day-mode';
+
   return (
-    <div className={`weather-card card ${animateCard ? 'fade-in' : ''} ${timeOfDay}-mode`}>
+    <div className={`weather-card card ${animateCard ? 'fade-in' : ''} ${cardModeClass}`}>
       <div className="weather-header">
         <div>
           <h2><span className="location-pin">📍</span>{name}, {country}</h2>
